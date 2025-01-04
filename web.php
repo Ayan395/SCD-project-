@@ -43,6 +43,8 @@ Route::get('/dashboard', function () {
     Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
 });
 
+Route::get('/search-services', [ServiceController::class, 'search']);
+
 
 
 require __DIR__.'/auth.php';

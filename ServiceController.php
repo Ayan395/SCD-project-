@@ -8,6 +8,19 @@ use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
+    public function search(Request $request)
+{
+    $query = $request->query('query', '');
+
+    $services = Service::where('title', 'like', '%' . $query . '%')
+        ->orWhere('description', 'like', '%' . $query . '%')
+        ->get();
+
+    return response()->json([
+        'services' => $services,
+    ]);
+}
+
     /**
      * Display a listing of the resource.
      * Fetch all services for the frontend.
@@ -108,5 +121,6 @@ class ServiceController extends Controller
         $service->delete();
 
         return redirect()->route('services.index')->with('success', 'Service deleted successfully!');
+        
     }
 }
